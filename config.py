@@ -7,7 +7,7 @@ class Config(object):
     TESTING = False
 
     BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-    MONGODB_SETTINGS = {'DB': 'android_tower',
+    MONGODB_SETTINGS = {'DB': 'lambdroid_tower',
                         'HOST': '127.0.0.1',
                         'PORT': 27017
         }
@@ -23,7 +23,7 @@ class DevConfig(Config):
 class PrdConfig(Config):
     DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
     MONGODB_SETTINGS = {
-            'DB': os.environ.get('DB_NAME') or 'android_tower',
+            'DB': os.environ.get('DB_NAME') or 'lambdroid_tower',
             'HOST': os.environ.get('MONGO_HOST') or '127.0.0.1',
             'PORT': 27017
         }
