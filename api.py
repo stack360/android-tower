@@ -58,7 +58,7 @@ def register_device():
     try:
         device.save()
     except mongoengine.errors.NotUniqueError as e:
-        return utils.make_json_response(400, str(e))
+        return utils.make_json_response(409, str(e))
     return utils.make_json_response(200, device.to_dict())
 
 
