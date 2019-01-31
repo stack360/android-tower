@@ -20,5 +20,5 @@ class Device(db.Document):
         device_dict['name'] = self.name
         device_dict['last_triggered'] = self.last_triggered.strftime(
             "%Y-%m-%d %H:%M:%S"
-        )
+        ) if self.last_triggered else ""
         return device_dict
