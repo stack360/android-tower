@@ -100,10 +100,8 @@ def _select_device():
 
 
 def _send_function_trigger(device_name, data):
-    print("===")
-    print(device_name)
     connection = pika.BlockingConnection(
-        pika.ConnectionParameters(app.config['RABBIT_HOST'])
+        pika.ConnectionParameters(host=app.config['RABBIT_HOST'], port=5672)
     )
     channel = connection.channel()
     channel.queue_declare(queue=device_name)
