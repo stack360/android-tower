@@ -76,8 +76,11 @@ def unregister_device(device_id):
 def run_function():
     data = utils.get_request_data()
     device = _select_device()
-    device, error = _get_device_by_id(device.id)
-    print(device.last_triggered)
+    if not device:
+        return utils.make_json_response(
+            400,
+            "Bad Request: No device available."
+        )
     code, status = _send_function_trigger(device.name, data)
     if code == 200:
         device.last_triggered = datetime.now()
@@ -87,6 +90,8 @@ def run_function():
 
 def _select_device():
     devices = models.Device.objects.order_by('-last_triggered')
+    if not devices:
+        return None
     selected_device = devices[len(devices) - 1]
     return selected_device
 
