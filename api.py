@@ -55,7 +55,10 @@ def register_device():
             "Error registering device: device name not found."
         )
     device.last_updated = datetime.now()
-    device.save()
+    try:
+        device.save()
+    except mongoengine.errors.NotUniqueError as e:
+        return utils.make_json_respnose(400, str(e))
     return utils.make_json_response(200, device.to_dict())
 
 
